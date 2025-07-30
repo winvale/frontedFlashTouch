@@ -1,0 +1,63 @@
+.demo {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #1a202c;
+    color: #ffffff;
+}
+
+.demo h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.demo p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background-color: #ffffff;
+    color: #1a202c;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.card img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.play-button, .next-button {
+    background-color: #2dd4bf;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.play-button:hover, .next-button:hover {
+    background-color: #0891b2;
+}

@@ -1,0 +1,112 @@
+.pricing {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+.pricing h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  color: #1a202c;
+}
+
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.plan-card {
+  background: #fff;
+  border: 2px solid #2dd4bf;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.09);
+  padding: 2.5rem 2rem;
+  width: 320px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.plan-card:hover {
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.16);
+}
+
+.plan-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1a202c;
+}
+
+.plan-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2dd4bf;
+  margin-bottom: 1.5rem;
+}
+
+.plan-price .unit {
+  font-size: 1rem;
+  color: #38bdf8;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  width: 100%;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #1a202c;
+  justify-content: flex-start;
+}
+
+.features .ok {
+  color: #22c55e;
+  margin-right: 0.5rem;
+}
+
+.features .no {
+  color: #ef4444;
+  margin-right: 0.5rem;
+}
+
+.plan-button {
+  background: #2dd4bf;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.08);
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.plan-button:hover {
+  background: #0891b2;
+}
+
+@media (max-width: 900px) {
+  .plans {
+    flex-direction: column;
+    align-items: center;
+  }
+  .plan-card {
+    width: 100%;
+    max-width: 400px;
+  }
+}

@@ -1,1 +1,20 @@
-<p>pricing works!</p>
+<section class="pricing">
+  <h2>{{ titleText }}</h2>
+  <div class="plans">
+    <div class="plan-card" *ngFor="let plan of plans">
+      <h3>{{ plan.name }}</h3>
+      <div class="plan-price">
+        <span class="price">{{ plan.price }}</span><span class="unit">{{ plan.priceUnit }}</span>
+      </div>
+      <ul class="features">
+        <li *ngFor="let feature of plan.features">
+          <span [class.ok]="feature.ok" [class.no]="!feature.ok">
+            {{ feature.ok ? '✔️' : '❌' }}
+          </span>
+          {{ feature.text }}
+        </li>
+      </ul>
+      <button class="plan-button">{{ plan.button }}</button>
+    </div>
+  </div>
+</section>
