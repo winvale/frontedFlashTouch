@@ -21,16 +21,12 @@ export class DemoComponent {
       'Experience how FlashTouch makes learning intuitive and fun';
   }
 
-  get cardTitle() {
-    return this.langService.currentLang === 'es' ?
-      'Manzana' :
-      'Apple';
-  }
+
 
   get cardDescription() {
     return this.langService.currentLang === 'es' ?
-      'Fruta roja, bocadillo saludable' :
-      'Red fruit, healthy snack';
+      'Sweet red apple' :
+      'Sweet red apple';
   }
 
   get playButtonText() {
