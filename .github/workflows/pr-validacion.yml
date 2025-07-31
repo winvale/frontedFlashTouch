@@ -1,0 +1,54 @@
+name: Validación de PRs (rama y aprobaciones)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    branches:
+      - '**'
+
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Validar nombre de rama origen (solo release/* puede mergear a master)
+        run: |
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+          echo "📌 PR hacia: $TARGET_BRANCH"
+          echo "📂 Rama origen: $SOURCE_BRANCH"
+
+          if [[ "$TARGET_BRANCH" == "master" && ! "$SOURCE_BRANCH" =~ ^release\/.+$ ]]; then
+            echo "❌ Solo se puede mergear a master desde ramas release/*"
+            exit 1
+          fi
+
+  validar_autoaprobacion:
+    if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚫 Bloquear auto-aprobaciones excepto del owner
+        run: |
+          PR_AUTHOR="${{ github.event.pull_request.user.login }}"
+          REVIEWER="${{ github.actor }}"
+
+          echo "👤 Autor del PR: $PR_AUTHOR"
+          echo "👀 Revisor: $REVIEWER"
+
+          # Reemplaza este nombre por tu usuario de GitHub
+          OWNER="edwinvalencia"
+
+          if [[ "$PR_AUTHOR" == "$REVIEWER" && "$REVIEWER" != "$OWNER" ]]; then
+            echo "❌ El autor del PR no puede aprobar su propio PR (excepto el owner)."
+            exit 1
+          else
+            echo "✅ Aprobación válida."
+          fi
