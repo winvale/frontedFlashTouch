@@ -60,20 +60,51 @@
 /* Contenedor de autenticación */
 .auth-container {
   margin-top: 1rem;
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.auth-container form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.form-group {
   width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
 }
 
 /* Estilos para el logo */
 .logo-container {
-  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .modal-logo {
-  max-width: 120px;
+  max-width: 200px;
   height: auto;
   margin: 0 auto;
   display: block;
@@ -130,32 +161,49 @@
 }
 
 /* Estilos para los botones */
+.form-actions {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
 .btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: all 0.2s;
-  width: 100%;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .btn-primary {
-  background-color: #4a90e2;
+  background-color: #008080;
   color: white;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 128, 128, 0.3);
+  border: none;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #3a7bc8;
-  transform: translateY(-1px);
+  background-color: #006666;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 128, 128, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 128, 128, 0.3);
 }
 
 .btn-primary:disabled {
-  background-color: #a0c4f3;
+  background-color: #4db8b8;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Estilos para el botón de Google */
