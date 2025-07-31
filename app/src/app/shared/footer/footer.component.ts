@@ -15,3 +15,4 @@ export class FooterComponent {
       ' 2024 FlashTouch. Revolutionizing language learning through visual intelligence.';
   }
 }
+asasa
