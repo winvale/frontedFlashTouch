@@ -1,0 +1,42 @@
+name: Validación de PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    branches:
+      - '**'
+
+jobs:
+  verificar-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar condiciones del PR
+        run: |
+          echo "🔍 Validando condiciones del PR..."
+
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state == "APPROVED")] | length')
+
+          echo "📌 Target branch: $TARGET_BRANCH"
+          echo "📌 Source branch: $SOURCE_BRANCH"
+          echo "📌 Aprobaciones: $APPROVALS"
+
+          # Validar PR hacia master
+          if [[ "$TARGET_BRANCH" == "master" ]]; then
+            if [[ ! "$SOURCE_BRANCH" =~ ^release\/.+$ ]]; then
+              echo "❌ Solo se puede mergear a master desde ramas release/*"
+              exit 1
+            fi
+          fi
+
+          # Validar que haya al menos 1 aprobación
+          if [[ "$APPROVALS" -lt 1 ]]; then
+            echo "❌ Este PR necesita al menos 1 aprobación"
+            exit 1
+          fi
+
+          echo "✅ Todo OK"
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
