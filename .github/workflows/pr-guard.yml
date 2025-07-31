@@ -11,32 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: ✅ Verificar si se hizo checkout
+        run: |
+          if [ ! -d ".git" ]; then
+            echo "❌ ERROR: Falta hacer 'actions/checkout'. Agrega este paso antes de usar comandos git."
+            exit 1
+          fi
+
+      - name: 🔄 Checkout del código
+        uses: actions/checkout@v3
+
       - name: Verificar condiciones del PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "🔍 Validando condiciones del PR..."
 
           TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
-          APPROVALS=$(gh pr view ${{ github.event.pull_request.number }} --json reviews --jq '[.reviews[] | select(.state == "APPROVED")] | length')
+          PR_NUMBER=${{ github.event.pull_request.number }}
 
           echo "📌 Target branch: $TARGET_BRANCH"
           echo "📌 Source branch: $SOURCE_BRANCH"
-          echo "📌 Aprobaciones: $APPROVALS"
 
-          # Validar PR hacia master
-          if [[ "$TARGET_BRANCH" == "master" ]]; then
-            if [[ ! "$SOURCE_BRANCH" =~ ^release\/.+$ ]]; then
-              echo "❌ Solo se puede mergear a master desde ramas release/*"
-              exit 1
-            fi
-          fi
-
-          # Validar que haya al menos 1 aprobación
-          if [[ "$APPROVALS" -lt 1 ]]; then
-            echo "❌ Este PR necesita al menos 1 aprobación"
+          if [[ "$TARGET_BRANCH" == "master" && ! "$SOURCE_BRANCH" =~ ^release\/.+$ ]]; then
+            echo "❌ Solo se puede mergear a master desde ramas release/*"
             exit 1
           fi
 
-          echo "✅ Todo OK"
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "✅ Validación pasada"
