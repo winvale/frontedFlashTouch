@@ -26,34 +26,34 @@ export class ScienceComponent implements OnInit {
     return this.langService.currentLang === 'es' ?
       [
         {
-          icon: '/assets/lightning-icon.png',
+          icon: '/logo.png',
           title: 'Procesamiento de 13ms',
           description: 'Tu cerebro procesa imágenes en solo 13 milisegundos, haciendo que el aprendizaje visual sea increíblemente rápido y eficiente.'
         },
         {
-          icon: '/assets/brain-icon.png',
+          icon: '/logo.png',
           title: 'Teoría del Doble Código',
           description: 'La investigación de Allan Paivio muestra que las imágenes crean múltiples vías de memoria, aumentando la retención hasta en un 65%.'
         },
         {
-          icon: '/assets/target-icon.png',
+          icon: '/logo.png',
           title: 'Superioridad de la Imagen',
           description: 'Las imágenes se almacenan en la memoria a largo plazo más efectivamente que el texto, creando una retención de vocabulario duradera.'
         }
       ] :
       [
         {
-          icon: '/assets/lightning-icon.png',
+          icon: '/logo.png',
           title: '13ms Processing',
           description: 'Your brain processes images in just 13 milliseconds, making visual learning incredibly fast and efficient.'
         },
         {
-          icon: '/assets/brain-icon.png',
+          icon: '/logo.png',
           title: 'Dual Coding Theory',
           description: "Allan Paivio's research shows images create multiple memory pathways, increasing retention by up to 65%."
         },
         {
-          icon: '/assets/target-icon.png',
+          icon: '/logo.png',
           title: 'Picture Superiority',
           description: 'Images are stored in long-term memory more effectively than text, creating lasting vocabulary retention.'
         }

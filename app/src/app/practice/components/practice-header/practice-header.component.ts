@@ -1,0 +1,77 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-practice-header',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <header class="practice-header">
+      <div class="ph-inner">
+        <div class="brand">
+          <img src="/logo.png" alt="FlashTouch" />
+          <span>FlashTouch</span>
+        </div>
+
+        <div class="user-area">
+          <span class="user-name">{{ username }}</span>
+          <span class="divider">|</span>
+          <span class="plan">Plan Gratuito</span>
+          <span class="divider">|</span>
+          <button class="btn-logout" (click)="logout()">Salir</button>
+        </div>
+      </div>
+    </header>
+  `,
+  styles: [`
+    .practice-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+      color: #fff;
+      padding: 10px 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .ph-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+    .brand img { width: 28px; height: 28px; }
+    .user-area { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    .divider { opacity: 0.6; }
+    .plan { opacity: 0.95; }
+    .btn-logout {
+      background: linear-gradient(135deg, #4f46e5, #312e81);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(49,46,129,0.35);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-logout:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(49,46,129,0.45); }
+  `]
+})
+export class PracticeHeaderComponent {
+  username: string = localStorage.getItem('auth_user') || 'Usuario';
+
+  constructor(private router: Router) {}
+
+  logout(): void {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    this.router.navigateByUrl('/');
+  }
+}
+
+

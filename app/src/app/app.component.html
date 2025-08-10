@@ -1,12 +1,18 @@
-<app-header></app-header>
-<app-hero></app-hero>
-<app-science></app-science>
-<app-features></app-features>
-<app-demo></app-demo>
-<app-pricing></app-pricing>
-<app-auth-modal></app-auth-modal>
-<app-footer></app-footer>
-<!-- Aquí se insertan los componentes principales del landing y modales -->
+<ng-container *ngIf="showLanding; else practiceArea">
+  <app-header></app-header>
+  <app-hero></app-hero>
+  <app-science></app-science>
+  <app-features></app-features>
+  <app-demo></app-demo>
+  <app-pricing></app-pricing>
+  <app-auth-modal></app-auth-modal>
+  <app-footer></app-footer>
+  
+</ng-container>
+
+<ng-template #practiceArea>
+  <router-outlet />
+</ng-template>
 
 <style>
   :host {
@@ -178,4 +184,4 @@
   }
 </style>
 
-<router-outlet />
+
