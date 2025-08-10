@@ -1,0 +1,31 @@
+.tutorial-screen { max-width: 900px; margin: 0 auto; padding: 20px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.header h2 { margin: 0; color: #2d3436; }
+.tutorial-steps { margin: 40px 0; }
+.step { display: flex; margin-bottom: 40px; position: relative; padding-left: 40px; }
+.step:not(:last-child)::after { content: ''; position: absolute; left: 30px; top: 50px; bottom: -40px; width: 2px; background: #e0e0e0; }
+.step-number { width: 60px; height: 60px; background: linear-gradient(45deg, #1dd1a1, #10ac84); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; margin-right: 20px; flex-shrink: 0; position: absolute; left: 0; }
+.step-content { flex: 1; background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.step-content h3 { margin-top: 0; color: #2d3436; }
+.step-content p { color: #636e72; margin-bottom: 15px; }
+.step-image { font-size: 60px; text-align: center; margin-top: 15px; }
+.tutorial-tips { margin: 60px 0 40px; }
+.tutorial-tips h3 { text-align: center; color: #2d3436; margin-bottom: 30px; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 30px; }
+.tip-card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+.tip-card:hover { transform: translateY(-5px); }
+.tip-icon { font-size: 2.5em; margin-bottom: 15px; }
+.tip-card h4 { margin: 10px 0; color: #2d3436; }
+.tip-card p { color: #636e72; font-size: 0.95em; margin: 0; }
+.tutorial-footer { text-align: center; margin: 40px 0; }
+.btn { padding: 12px 30px; border: none; border-radius: 50px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease; }
+.btn-primary { background: linear-gradient(45deg, #1dd1a1, #10ac84); color: white; font-weight: 500; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(29, 209, 161, 0.3); }
+@media (max-width: 768px) {
+  .step { flex-direction: column; padding-left: 0; padding-top: 70px; }
+  .step:not(:last-child)::after { left: 30px; top: 120px; bottom: -40px; }
+  .step-number { position: absolute; top: 0; left: 50%; transform: translateX(-50%); margin: 0 0 20px 0; }
+  .tips-grid { grid-template-columns: 1fr; }
+}
+
+

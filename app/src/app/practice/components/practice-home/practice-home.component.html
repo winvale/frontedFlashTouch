@@ -1,0 +1,80 @@
+<div class="practice-home">
+  <div class="welcome-section">
+    <h1>¡Aprende Inglés de Forma Visual!</h1>
+    <p class="subtitle">Mejora tu vocabulario con nuestro método de aprendizaje basado en imágenes y contexto.</p>
+    
+    <div class="quick-stats">
+      <div class="stat-item">
+        <div class="stat-value">{{ userProgress.wordsLearned }}+</div>
+        <div class="stat-label">Palabras Aprendidas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{{ userProgress.currentStreak }}</div>
+        <div class="stat-label">Días de Racha</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">{{ userProgress.totalTime }}h</div>
+        <div class="stat-label">Horas de Estudio</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="action-cards">
+    <div class="card" (click)="navigateTo('levels')">
+      <div class="card-icon">📚</div>
+      <h3>Aprender Nuevas Palabras</h3>
+      <p>Explora palabras organizadas por niveles de dificultad y amplía tu vocabulario.</p>
+      <div class="card-footer">
+        <span class="link">Comenzar ahora →</span>
+      </div>
+    </div>
+    
+    <div class="card" (click)="navigateTo('quizzes')">
+      <div class="card-icon">📝</div>
+      <h3>Realizar Exámenes</h3>
+      <p>Pon a prueba tus conocimientos con exámenes cronometrados.</p>
+      <div class="card-footer">
+        <span class="link">Iniciar examen →</span>
+      </div>
+    </div>
+    
+    <div class="card" (click)="navigateTo('progress')">
+      <div class="card-icon">📊</div>
+      <h3>Ver Mi Progreso</h3>
+      <p>Revisa tus estadísticas y el avance en cada nivel.</p>
+      <div class="card-footer">
+        <span class="link">Ver detalles →</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="levels-preview">
+    <h2>Niveles Disponibles</h2>
+    <div class="levels-grid">
+      <div *ngFor="let level of levels" class="level-card" 
+           [class.locked]="level.isLocked"
+           (click)="selectLevel(level)">
+        <div class="level-icon">{{ level.icon }}</div>
+        <h3>{{ level.name }}</h3>
+        <p>{{ level.description }}</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getLevelProgress(level.id)"></div>
+        </div>
+        <div class="progress-text">
+          {{ level.completedWords }} de {{ level.totalWords }} palabras
+        </div>
+        <div *ngIf="level.isLocked" class="locked-overlay">
+          🔒 {{ level.requiredLevel ? 'Completa el nivel ' + level.requiredLevel : 'Requiere Plan Premium' }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tutorial-cta" *ngIf="!hasSeenTutorial">
+    <h3>¿Primera vez aquí?</h3>
+    <p>Mira nuestro tutorial rápido para aprovechar al máximo la plataforma.</p>
+    <button class="btn btn-outline" (click)="startTutorial()">Ver Tutorial</button>
+  </div>
+</div>
+
+

@@ -8,11 +8,8 @@ import { PracticeFooterComponent } from '../practice-footer/practice-footer.comp
   selector: 'app-practice-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, PracticeHeaderComponent, PracticeFooterComponent],
-  template: `
-    <app-practice-header></app-practice-header>
-    <router-outlet />
-    <app-practice-footer></app-practice-footer>
-  `,
+  templateUrl: './practice-layout.component.html',
+  styleUrls: ['./practice-layout.component.css']
 })
 export class PracticeLayoutComponent {}
 

@@ -1,0 +1,58 @@
+<div class="progress-screen">
+  <div class="header">
+    <h2>Mi Progreso</h2>
+    <button class="btn btn-secondary" (click)="goBack()">← Volver</button>
+  </div>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">{{ userProgress.wordsLearned }}</div>
+      <div class="stat-label">Palabras Aprendidas</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value">{{ userProgress.currentStreak }} días</div>
+      <div class="stat-label">Racha Actual</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value">{{ userProgress.totalTime }}h</div>
+      <div class="stat-label">Tiempo de Estudio</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-value">{{ userProgress.examsPassed }}</div>
+      <div class="stat-label">Exámenes Aprobados</div>
+    </div>
+  </div>
+  
+  <div class="levels-progress">
+    <h3>Progreso por Nivel</h3>
+    <div *ngFor="let level of levels" class="level-progress">
+      <div class="level-header">
+        <span class="level-name">{{ level.icon }} {{ level.name }}</span>
+        <span class="level-percentage">{{ getLevelCompletion(level.id) }}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="getLevelCompletion(level.id)"></div>
+      </div>
+      <div class="level-stats">
+        <span>{{ getCompletedWords(level.id) }} de {{ level.totalWords }} palabras</span>
+        <span>•</span>
+        <span>{{ getDaysStudied(level.id) }} días</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="difficult-words" *ngIf="userProgress.difficultWords.length > 0">
+    <h3>Palabras Difíciles</h3>
+    <div class="words-list">
+      <div class="word-tag" *ngFor="let wordId of userProgress.difficultWords">
+        {{ getWordText(wordId) }}
+        <button class="btn-remove" (click)="removeDifficultWord(wordId)">×</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
