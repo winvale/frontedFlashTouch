@@ -1,21 +1,35 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-    <img [src]="logoPath" alt="Logo FlashTouch" class="logo-img" />
-    FlashTouch
-</div>
-        <ul class="nav-links">
+            <img [src]="logoPath" alt="Logo FlashTouch" class="logo-img" />
+            FlashTouch
+        </div>
+        <ul class="nav-links" *ngIf="!isLoggedIn">
             <li *ngFor="let link of navLinks">
                 <a [href]="link.href">{{ link.label }}</a>
             </li>
         </ul>
-        <div class="auth-buttons">
+        <div class="auth-buttons" *ngIf="!isLoggedIn; else userMenu">
             <a href="#" class="btn btn-outline" (click)="onLoginClick($event)">{{ loginText }}</a>
             <a href="#" class="btn btn-primary" (click)="onSignupClick($event)">{{ signupText }}</a>
         </div>
+        <ng-template #userMenu>
+            <div class="user-info">
+                <span class="user-name">{{ username || 'Usuario' }}</span>
+                <span class="plan-badge">Plan Gratuito</span>
+                <button class="btn btn-outline" (click)="onLogout()">Salir</button>
+            </div>
+        </ng-template>
         <div class="lang-switch">
             <button class="lang-btn" [class.active]="currentLang === 'es'" (click)="setLanguage('es')">ES</button>
             <button class="lang-btn" [class.active]="currentLang === 'en'" (click)="setLanguage('en')">EN</button>
         </div>
     </nav>
+    
+    <!-- Modal de autenticación -->
+    <app-auth-modal 
+        [isOpen]="isAuthModalOpen"
+        [isLoginMode]="isLoginMode"
+        (close)="onAuthModalClose()"
+    ></app-auth-modal>
 </header>

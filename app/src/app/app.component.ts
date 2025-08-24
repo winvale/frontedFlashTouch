@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/header/header.component';
 import { HeroComponent } from './shared/hero/hero.component';
 import { ScienceComponent } from './shared/science/science.component';
@@ -13,6 +14,7 @@ import { AuthModalComponent } from './shared/auth-modal/auth-modal.component';
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
     HeaderComponent,
     HeroComponent,
@@ -28,4 +30,14 @@ import { AuthModalComponent } from './shared/auth-modal/auth-modal.component';
 })
 export class AppComponent {
   title = 'app';
+  showLanding = true;
+
+  constructor(private router: Router) {
+    // Oculta el landing cuando se navega a rutas de práctica
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showLanding = !event.urlAfterRedirects.startsWith('/practice');
+      }
+    });
+  }
 }

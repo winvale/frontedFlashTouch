@@ -1,0 +1,21 @@
+<div class="level-selection">
+  <h2>Selecciona tu Nivel</h2>
+  <button class="btn btn-secondary" (click)="goBack()">← Volver</button>
+  
+  <div *ngFor="let level of levels" 
+       class="level-card" 
+       [class.locked]="level.isLocked"
+       (click)="selectLevel(level)">
+    <h3>{{ level.icon }} {{ level.name }}</h3>
+    <p>{{ level.description }}</p>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="getLevelProgress(level.id)"></div>
+    </div>
+    <small>{{ level.completedWords }}/{{ level.totalWords }} palabras completadas</small>
+    <div *ngIf="level.isLocked" class="locked-message">
+      🔒 {{ level.requiredLevel ? 'Completa el nivel ' + level.requiredLevel : 'Requiere Plan Premium' }}
+    </div>
+  </div>
+</div>
+
+

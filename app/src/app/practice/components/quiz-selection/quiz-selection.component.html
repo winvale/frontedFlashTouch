@@ -1,0 +1,28 @@
+<div class="quiz-selection">
+  <h2>Exámenes de Práctica</h2>
+  <button class="btn btn-secondary" (click)="goBack()">← Volver</button>
+  
+  <div class="quiz-cards">
+    <div *ngFor="let level of levels" 
+         class="quiz-card"
+         [class.locked]="level.isLocked"
+         (click)="selectQuiz(level.id)">
+      <div class="quiz-icon">📝</div>
+      <h3>{{ level.name }}</h3>
+      <p>{{ level.description }}</p>
+      <div class="quiz-stats">
+        <span>10 preguntas</span>
+        <span>•</span>
+        <span>80% para aprobar</span>
+      </div>
+      <div *ngIf="level.isLocked" class="locked-message">
+        🔒 {{ level.requiredLevel ? 'Completa el nivel ' + level.requiredLevel : 'Requiere Plan Premium' }}
+      </div>
+      <button class="btn btn-primary" [disabled]="level.isLocked">
+        Iniciar Examen
+      </button>
+    </div>
+  </div>
+</div>
+
+

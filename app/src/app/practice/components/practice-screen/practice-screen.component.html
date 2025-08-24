@@ -1,0 +1,31 @@
+<div class="practice-screen">
+  <div class="header">
+    <button class="btn btn-secondary" (click)="goBack()">← Volver</button>
+    <div class="level-info">
+      {{ currentLevel | titlecase }} - {{ currentWordIndex + 1 }} / {{ words.length }}
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="progress"></div>
+  </div>
+
+  <div class="word-display">
+    <div class="word-image">
+      {{ currentWord?.image }}
+    </div>
+    <div class="word-text">{{ currentWord?.text }}</div>
+    <div class="word-context">"{{ currentWord?.context }}"</div>
+    <button class="btn btn-audio" (click)="playAudio()">
+      🔊 Pronunciar
+    </button>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="previousWord()" [disabled]="currentWordIndex === 0">← Anterior</button>
+    <button class="btn btn-warning" (click)="markAsDifficult()">⭐ Marcar como Difícil</button>
+    <button class="btn btn-primary" (click)="nextWord()">{{ isLastWord ? 'Finalizar' : 'Siguiente' }} →</button>
+  </div>
+</div>
+
+
