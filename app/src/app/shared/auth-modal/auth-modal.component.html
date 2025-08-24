@@ -12,20 +12,17 @@
       
       <form (ngSubmit)="onSubmit()" #authForm="ngForm">
         <div class="form-group">
-          <label for="email">{{ translations.email[currentLang] }}</label>
+          <label for="email">Usuario</label>
           <input 
-            type="email" 
+            type="text" 
             id="email" 
             name="email" 
             [(ngModel)]="loginData.email" 
             required 
-            email
             #email="ngModel"
             [class.invalid]="email.invalid && email.touched"
           >
-          <div *ngIf="email.invalid && email.touched" class="error-message">
-            {{ email.hasError('required') ? translations.emailRequired[currentLang] : translations.emailInvalid[currentLang] }}
-          </div>
+          <div *ngIf="email.invalid && email.touched" class="error-message">Requerido</div>
         </div>
         
         <div class="form-group">
@@ -40,9 +37,7 @@
             #password="ngModel"
             [class.invalid]="password.invalid && password.touched"
           >
-          <div *ngIf="password.invalid && password.touched" class="error-message">
-            {{ password.hasError('required') ? translations.passwordRequired[currentLang] : translations.passwordMinLength[currentLang] }}
-          </div>
+          <div *ngIf="password.invalid && password.touched" class="error-message">Requerido</div>
         </div>
         
         <div *ngIf="error" class="error-message server-error">

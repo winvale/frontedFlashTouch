@@ -1,0 +1,80 @@
+<div class="quiz-screen">
+  <div class="header">
+    <div class="quiz-info">
+      <h2>Examen: {{ currentLevel | titlecase }}</h2>
+      <div class="progress">Pregunta {{ currentQuestionIndex + 1 }} de {{ quizQuestions.length }}</div>
+    </div>
+    <div class="timer">⏱️ {{ formatTime(timeLeft) }}</div>
+  </div>
+  
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="(currentQuestionIndex / quizQuestions.length) * 100"></div>
+  </div>
+  
+  <div class="question-container" *ngIf="currentQuestion">
+    <div class="question">
+      <div class="question-text">{{ currentQuestion.word.text }}</div>
+      <div class="question-context">"{{ currentQuestion.word.context }}"</div>
+      <div class="question-image">{{ currentQuestion.word.image }}</div>
+    </div>
+    
+    <div class="options">
+      <button 
+        *ngFor="let option of currentQuestion.options; let i = index"
+        class="option"
+        [class.selected]="selectedOption === option"
+        [class.correct]="showResults && option === currentQuestion.correctAnswer"
+        [class.incorrect]="showResults && selectedOption === option && selectedOption !== currentQuestion.correctAnswer"
+        (click)="selectOption(option)"
+        [disabled]="showResults">
+        {{ option }}
+      </button>
+    </div>
+    
+    <div class="feedback" *ngIf="showResults">
+      <div class="feedback-message" [class.correct]="isAnswerCorrect" [class.incorrect]="!isAnswerCorrect">
+        {{ isAnswerCorrect ? '¡Correcto! 🎉' : 'Incorrecto 😕' }}
+      </div>
+      <div class="explanation" *ngIf="!isAnswerCorrect">
+        La respuesta correcta es: <strong>{{ currentQuestion.correctAnswer }}</strong>
+      </div>
+      <button class="btn btn-primary" (click)="nextQuestion()">
+        {{ isLastQuestion ? 'Ver Resultados' : 'Siguiente Pregunta' }}
+      </button>
+    </div>
+  </div>
+  
+  <div class="results" *ngIf="showFinalResults">
+    <h2>Resultados del Examen</h2>
+    <div class="score">
+      <div class="score-value">{{ correctAnswers }} / {{ quizQuestions.length }}</div>
+      <div class="score-percentage">{{ (correctAnswers / quizQuestions.length) * 100 }}%</div>
+      <div class="score-message" [class.passed]="hasPassed" [class.failed]="!hasPassed">
+        {{ hasPassed ? '¡Felicidades! Has aprobado el examen.' : 'No has alcanzado el puntaje mínimo. Inténtalo de nuevo.' }}
+      </div>
+    </div>
+    
+    <div class="question-recap">
+      <h3>Resumen de respuestas:</h3>
+      <div class="question-item" *ngFor="let question of quizQuestions; let i = index">
+        <div class="question-text">
+          {{ i + 1 }}. {{ question.word.text }}: 
+          <span class="user-answer" [class.correct]="question.userAnswer === question.correctAnswer"
+                [class.incorrect]="question.userAnswer !== question.correctAnswer">
+            {{ question.userAnswer || 'Sin responder' }}
+          </span>
+          <span *ngIf="question.userAnswer !== question.correctAnswer" class="correct-answer">
+            (Correcta: {{ question.correctAnswer }})
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="restartQuiz()">Reintentar Examen</button>
+      <button class="btn btn-primary" (click)="finishQuiz()">Volver a la Práctica</button>
+    </div>
+  </div>
+</div>
+
+

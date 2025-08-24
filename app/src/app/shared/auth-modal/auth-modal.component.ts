@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LanguageService, SupportedLanguage } from '../language.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-modal',
@@ -49,7 +51,11 @@ export class AuthModalComponent implements OnInit, OnDestroy {
     signupWithGoogle: { es: 'Registrarse con Google', en: 'Sign up with Google' }
   };
   
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
   
   private destroy$ = new Subject<void>();
 
@@ -79,16 +85,19 @@ export class AuthModalComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // Aquí iría la lógica de autenticación
     this.isLoading = true;
     this.error = null;
-    
-    // Simulando una llamada a la API
-    setTimeout(() => {
-      console.log('Datos de autenticación:', this.loginData);
+    const username = this.loginData.email.trim();
+    const password = this.loginData.password;
+    this.authService.login(username, password).subscribe((ok) => {
       this.isLoading = false;
-      // this.close.emit(); // Descomentar para cerrar automáticamente al autenticar
-    }, 1000);
+      if (ok) {
+        this.close.emit();
+        this.router.navigate(['/practice']);
+      } else {
+        this.error = this.currentLang === 'es' ? 'Credenciales inválidas' : 'Invalid credentials';
+      }
+    });
   }
 
   // Evita que el clic en el modal se propague al fondo

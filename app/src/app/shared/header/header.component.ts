@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService, SupportedLanguage } from '../language.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,9 @@ export class HeaderComponent {
   logoPath = '/logo.png';
   isAuthModalOpen = false;
   isLoginMode = true; // Nuevo estado para controlar el modo del modal
+  username: string | null = localStorage.getItem('auth_user');
 
-  constructor(public langService: LanguageService) {}
+  constructor(public langService: LanguageService, private router: Router) {}
 
   onLoginClick(event: Event) {
     event.preventDefault();
@@ -31,6 +33,7 @@ export class HeaderComponent {
 
   onAuthModalClose() {
     this.isAuthModalOpen = false;
+    this.username = localStorage.getItem('auth_user');
   }
 
   setLanguage(lang: SupportedLanguage) {
@@ -60,6 +63,17 @@ export class HeaderComponent {
   }
   get signupText() {
     return this.currentLang === 'es' ? 'Registrarse' : 'Sign Up';
+  }
+
+  get isLoggedIn(): boolean {
+    return !!localStorage.getItem('auth_token');
+  }
+
+  onLogout() {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    this.username = null;
+    this.router.navigateByUrl('/');
   }
 
 

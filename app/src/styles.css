@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global reset to remove default margins and ensure full-bleed headers/footers */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Ajuste de margen superior solo para el hero (landing) */
+app-hero {
+  display: block;
+  margin-top: 6rem; /* Ajusta este valor según sea necesario */
+}
